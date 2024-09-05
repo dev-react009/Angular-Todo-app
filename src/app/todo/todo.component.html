@@ -1,0 +1,25 @@
+<div class="todo-container">
+    <!-- Input field for creating and adding new todos -->
+    <div class="add-todo">
+        <input [(ngModel)]="newTodo" placeholder="Enter a new Todo" />
+        <button (click) = "addTodo()" >Add Todo</button>
+    </div>
+    <div *ngIf="todos.length===0">
+        <p>Nothing to See !!</p>
+    </div>
+
+    <ul *ngIf="todos.length>0">
+        <p>Todo Items</p>
+        <li *ngFor="let todo of todos; let i = index">
+            <div class="checkbox-text-wrapper">
+                <input type="checkbox" [(ngModel)]="todo.completed" *ngIf="!todo.isEditing" />
+                <span [class.completed]="todo.completed" *ngIf="!todo.isEditing">{{ todo.text }}</span>
+            </div>
+            <input [(ngModel)]="todo.text" *ngIf="todo.isEditing" class="edit-input" />
+            <button (click)="deleteTodo(i)" class="delete-btn" *ngIf="!todo.isEditing">Delete</button>
+            <button (click)="editTodo(i)"  *ngIf="!todo.isEditing">Edit</button>
+            <button *ngIf="todo.isEditing" (click)="updateTodo(i)">Update</button>
+        </li>
+
+    </ul>
+</div>
